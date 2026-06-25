@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabMatch | Find Your AI Role</title>
+    <style>
+        :root {
+            --bg-canvas: #fafafa;
+            --panel-white: #ffffff;
+            --sonic-orange: #ff6a00;
+            --sonic-orange-light: #fff0e6;
+            --text-ink: #1f2937;
+            --text-slate: #4b5563;
+            --border-clean: #e5e7eb;
+            --success-green: #10b981;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-ink);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .story-container {
+            width: 100%;
+            max-width: 720px;
+            padding: 40px 24px;
+            box-sizing: border-box;
+        }
+
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            background: var(--panel-white);
+            border: 1px solid var(--border-clean);
+            border-radius: 20px;
+            padding: 48px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.01);
+        }
+
+        .slide.active { display: block; opacity: 1; }
+
+        .badge {
+            display: inline-block;
+            background: var(--sonic-orange-light);
+            color: var(--sonic-orange);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 4px;
+            background: var(--border-clean);
+            border-radius: 2px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--sonic-orange);
+            transition: width 0.4s ease;
+        }
+
+        h1, h2, h3 { margin: 0 0 16px 0; letter-spacing: -1px; line-height: 1.15; }
+        .desc { color: var(--text-slate); line-height: 1.6; margin-bottom: 32px; font-size: 1.05rem; }
+
+        .option {
+            border: 1.5px solid var(--border-clean);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--panel-white);
+        }
+        .option:hover { border-color: var(--sonic-orange); background: var(--sonic-orange-light); }
+        .option-title { font-weight: 700; display: block; margin-bottom: 4px; }
+        .option-subtitle { font-size: 0.9rem; color: var(--text-slate); }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border-clean);
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            margin-bottom: 24px;
+        }
+        input[type="email"]:focus { border-color: var(--sonic-orange); }
+
+        .btn {
+            background: var(--sonic-orange);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: background 0.2s;
+            text-align: center;
+        }
+        .btn:hover { background: #e05d00; }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        .btn-secondary { background: #ffffff; color: var(--text-ink); border: 1px solid var(--border-clean); }
+        .btn-secondary:hover { background: var(--bg-canvas); border-color: var(--text-slate); }
+        .btn-share { background: #0077b5; color: white; }
+        .btn-share:hover { background: #005a8a; }
+        .btn-join { background: var(--success-green); color: white; text-decoration: none; display: block; text-align: center; box-sizing: border-box; }
+        .btn-join:hover { background: #059669; }
+
+        .market-metrics {
+            margin: 24px 0;
+            border: 1px solid var(--border-clean);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-clean);
+        }
+        .metric-row:last-child { border-bottom: none; }
+        .metric-label { font-weight: 600; color: var(--text-slate); }
+        .metric-value { font-weight: 700; color: var(--text-ink); }
+        .metric-value.highlighted-rate { color: var(--sonic-orange); font-size: 1.25rem; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+<div class="story-container">
+
+    <div class="progress-bar-container">
+        <div id="progress-fill" class="progress-fill"></div>
+    </div>
+
+    <div id="slide-1" class="slide active">
+        <span class="badge">LabMatch Quiz</span>
+        <h1>Reveal Your Role</h1>
+        <p class="desc">Smart AI models are growing fast. Take this quick quiz to see how your everyday work skills can help build the future of AI technology.</p>
+        <button class="btn" onclick="goToSlide(2)">Start the Quiz</button>
+    </div>
+
+    <div id="slide-2" class="slide">
+        <h2>01 / Your Main Field</h2>
+        <p class="desc">What kind of work or subject do you know best?</p>
+        <div id="domain-options"></div>
+    </div>
+
+    <div id="slide-3" class="slide">
+        <h2>02 / Your Problem-Solving Style</h2>
+        <p class="desc">How do you usually handle tricky questions or look for mistakes?</p>
+        <div class="option" onclick="selectPsychometric('Granular Adversarial')">
+            <span class="option-title">Testing Limits</span>
+            <span class="option-subtitle">I like to test rules to find hidden mistakes and weak spots.</span>
+        </div>
+        <div class="option" onclick="selectPsychometric('Synthetic Structural')">
+            <span class="option-title">Building Blueprints</span>
+            <span class="option-subtitle">I like to turn big, messy ideas into clear, simple guides.</span>
+        </div>
+        <div class="option" onclick="selectPsychometric('Heuristic Creative')">
+            <span class="option-title">Thinking Outside the Box</span>
+            <span class="option-subtitle">I like using imagination to solve unusual problems that do not have clear rules.</span>
+        </div>
+    </div>
+
+    <div id="slide-4" class="slide">
+        <h2>03 / Your Work Habits</h2>
+        <p class="desc">What kind of work setup helps you focus the best?</p>
+        <div class="option" onclick="selectWorkStyle('Asynchronous Autonomous')">
+            <span class="option-title">Independent Focus</span>
+            <span class="option-subtitle">I work best alone, taking my time to deeply study a single problem.</span>
+        </div>
+        <div class="option" onclick="selectWorkStyle('Iterative Rapid-Fire')">
+            <span class="option-title">Fast-Paced Loops</span>
+            <span class="option-subtitle">I work best moving quickly between tasks and fixing problems on the go.</span>
+        </div>
+    </div>
+
+    <div id="slide-5" class="slide">
+        <h2>04 / Your Strongest Skill</h2>
+        <p class="desc">Which of these tasks feels easiest to you?</p>
+        <div class="option" onclick="selectSkill('Logical Fallacy Separation')">
+            <span class="option-title">Spotting Bad Logic</span>
+            <span class="option-subtitle">Finding made-up facts and pointing out arguments that do not make sense.</span>
+        </div>
+        <div class="option" onclick="selectSkill('Nuanced Semantic Pruning')">
+            <span class="option-title">Smoothing Out Text</span>
+            <span class="option-subtitle">Fixing the tone, slang, and clarity of a piece of writing so it sounds natural.</span>
+        </div>
+        <div class="option" onclick="selectSkill('Structural Edge Case Mapping')">
+            <span class="option-title">Handling Weird Situations</span>
+            <span class="option-subtitle">Figuring out what to do when rules crash or confuse each other.</span>
+        </div>
+    </div>
+
+    <div id="slide-6" class="slide">
+        <span class="badge">Save Your Progress</span>
+        <h2>Secure Your Profile</h2>
+        <p class="desc">Your choices are saved! Enter your work email below to unlock your results and see active tech lab jobs.</p>
+        <input type="email" id="user-email" placeholder="name@domain.com" required>
+        <button class="btn" id="email-submit-btn" onclick="submitSecureEmail()">See My Match</button>
+    </div>
+
+    <div id="slide-7" class="slide">
+        <span class="badge">Your Match Is Ready</span>
+        <h2>Your AI Career Fit</h2>
+        
+        <div class="market-metrics">
+            <div class="metric-row">
+                <span class="metric-label">Your AI Job Title:</span>
+                <span id="display-role" class="metric-value">Loading...</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Estimated Hourly Pay:</span>
+                <span id="display-rate" class="metric-value highlighted-rate">$00.00 / hr</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Your Field Focus:</span>
+                <span id="display-specialty" class="metric-value">Loading...</span>
+            </div>
+        </div>
+
+        <p class="desc">Great news! Your background is a perfect fit for real job openings at major AI research labs looking for smart helpers.</p>
+
+        <div class="matrix-grid">
+            <a href="#" id="display-referral-link" target="_blank" class="btn btn-join">Apply to an AI Lab Now</a>
+            <button class="btn btn-share" onclick="shareToLinkedIn()">Share My Results on LinkedIn</button>
+            <button class="btn btn-secondary" onclick="resetEngine()">Take Quiz Again</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let state = {
+        specialty: '',
+        role: '',
+        rate: '',
+        referral: '',
+        psychometric: '',
+        workStyle: '',
+        skill: '',
+        email: ''
+    };
+
+    // Kept exactly intact to preserve the referral logic
+    const pipelineData = [
+        { segment: "Software Engineering", role: "Code Evaluator", rate: "$45 - $65", link: "https://t.mercor.com/rrVyb" },
+        { segment: "Data Analysis", role: "Data Critic", rate: "$40 - $55", link: "https://t.mercor.com/K13Z9" },
+        { segment: "Finance", role: "Quantitative Reviewer", rate: "$45 - $60", link: "https://t.mercor.com/po98d" },
+        { segment: "Arts", role: "Generative Designer", rate: "$35 - $50", link: "https://t.mercor.com/P5jqE" },
+        { segment: "Language/Audio", role: "Linguistics Expert", rate: "$35 - $50", link: "https://t.mercor.com/dWbN8" },
+        { segment: "Humanities", role: "Reasoning Specialist", rate: "$35 - $50", link: "https://t.mercor.com/uP10o" },
+        { segment: "Medicine", role: "Clinical Validator", rate: "$60 - $85", link: "https://t.mercor.com/1Sxsx" },
+        { segment: "Law", role: "Compliance Commander", rate: "$50 - $75", link: "https://t.mercor.com/j41qe" },
+        { segment: "Life Sciences", role: "Research Accelerator", rate: "$45 - $65", link: "https://t.mercor.com/PEfVh" },
+        { segment: "Business Operations", role: "Operations Specialist", rate: "$35 - $50", link: "https://t.mercor.com/YCgs8" }
+    ];
+
+    const totalSlides = 7;
+
+    function goToSlide(id) {
+        document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+        document.getElementById(`slide-${id}`).classList.add('active');
+        const percent = ((id - 1) / (totalSlides - 1)) * 100;
+        document.getElementById('progress-fill').style.width = `${percent}%`;
+    }
+
+    const optionsContainer = document.getElementById('domain-options');
+    pipelineData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.innerHTML = `<span class="option-title">${item.segment}</span><span class="option-subtitle">Match Pathway: ${item.role}</span>`;
+        div.onclick = () => {
+            state.specialty = item.segment;
+            state.role = item.role;
+            state.rate = item.rate;
+            state.referral = item.link;
+            goToSlide(3);
+        };
+        optionsContainer.appendChild(div);
+    });
+
+    function selectPsychometric(val) { state.psychometric = val; goToSlide(4); }
+    function selectWorkStyle(val) { state.workStyle = val; goToSlide(5); }
+    function selectSkill(val) { state.skill = val; goToSlide(6); }
+
+    async function submitSecureEmail() {
+        const emailInput = document.getElementById('user-email').value;
+        const btn = document.getElementById('email-submit-btn');
+        
+        if (!emailInput.includes('@') || emailInput.length < 5) {
+            return alert("Please enter a valid work email address.");
+        }
+
+        state.email = emailInput;
+        btn.innerText = "Loading your results...";
+
+        try {
+            await fetch('/api/capture', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(state)
+            });
+        } catch (e) { console.log("Data captured locally."); }
+
+        document.getElementById('display-role').innerText = state.role;
+        document.getElementById('display-rate').innerText = `${state.rate} / hr`;
+        document.getElementById('display-specialty').innerText = state.specialty;
+        document.getElementById('display-referral-link').href = state.referral;
+
+        goToSlide(7);
+    }
+
+    function shareToLinkedIn() {
+        const text = `My micro-specialty is shifting the architecture of AI; experts like me are heading toward "${state.role}" roles at major labs.\n\nInsight via SonicBloom: labor-boom.vercel.app`;
+        const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://labor-boom.vercel.app&text=${encodeURIComponent(text)}`;
+        window.open(shareUrl, '_blank', 'width=600,height=600');
+    }
+
+    function resetEngine() {
+        state = { specialty: '', role: '', rate: '', referral: '', psychometric: '', workStyle: '', skill: '', email: '' };
+        document.getElementById('user-email').value = '';
+        document.getElementById('email-submit-btn').innerText = "See My Match";
+        goToSlide(1);
+    }
+</script>
+
+</body>
+</html>
