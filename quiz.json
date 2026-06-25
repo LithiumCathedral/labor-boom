@@ -1,0 +1,71 @@
+{
+  "appConfig": {
+    "quizName": "LabMatch",
+    "version": "2.0.0",
+    "ethos": "informed, accessible, simple, helpful",
+    "theme": {
+      "mode": "light",
+      "primaryColor": "#ff6a00",
+      "secondaryColor": "#fafafa",
+      "textColor": "#1f2937",
+      "accentColor": "#10b981"
+    },
+    "meta": {
+      "baseUrl": "https://labor-boom.vercel.app",
+      "defaultShareTitle": "LabMatch | Discover Your AI Alignment Role"
+    }
+  },
+  "slides": {
+    "intro": {
+      "id": "slide-intro",
+      "badge": "Introducing LabMatch",
+      "title": "Reveal Your Role",
+      "highlightWord": "Role",
+      "description": "AI models are evolving quickly, creating a high demand for specialized knowledge. Take a few simple steps to find out where your professional experience fits into this new frontier.",
+      "ctaText": "Start LabMatch"
+    },
+    "expertiseQuiz": {
+      "id": "slide-expertise",
+      "stepNumber": "02",
+      "question": "What is your primary area of domain expertise?",
+      "subtitle": "Select the option that best matches your professional background or training.",
+      "tracks": [
+        {
+          "id": "medicine",
+          "category": "Medicine & Healthcare",
+          "description": "Review complex clinical decisions, evaluate diagnostic reasoning, or interpret medical data.",
+          "assignedRole": "Clinical Reasoning Evaluator"
+        },
+        {
+          "id": "law",
+          "category": "Law & Policy",
+          "description": "Govern high-stakes legal logic, guide contract evaluations, or map compliance pipelines.",
+          "assignedRole": "Regulatory Compliance Architect"
+        },
+        {
+          "id": "lifesci",
+          "category": "Life Sciences & Research",
+          "description": "Contribute to scientific discoveries, evaluate complex biological structures, or review research methodologies.",
+          "assignedRole": "Data Optimization Architect"
+        },
+        {
+          "id": "bizops",
+          "category": "Business Operations",
+          "description": "Optimize organizational supply chains, direct logical scaling, or analyze operational workflows.",
+          "assignedRole": "Operational Scale Strategist"
+        }
+      ]
+    },
+    "results": {
+      "id": "slide-result",
+      "title": "Your Match is Ready",
+      "preHeader": "Based on your background, your optimal match within cutting-edge AI development models is:",
+      "postHeader": "Major research labs look for this precise blend of experience to evaluate structural alignment systems safely.",
+      "ctaText": "Share Match on LinkedIn"
+    }
+  },
+  "sharingEngine": {
+    "platform": "LinkedIn",
+    "copyTemplate": "My micro-specialty is shifting the architecture of AI; experts like me are heading toward \"{{assignedRole}}\" roles at major labs.\n\nInsight is everything: labor-boom.vercel.app"
+  }
+}
