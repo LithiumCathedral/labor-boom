@@ -258,7 +258,7 @@
 </div>
 
 <script>
-    let state = {
+    let internalState = {
         specialty: '',
         role: '',
         rate: '',
@@ -269,7 +269,6 @@
         email: ''
     };
 
-    // Kept exactly intact to preserve the referral logic
     const pipelineData = [
         { segment: "Software Engineering", role: "Code Evaluator", rate: "$45 - $65", link: "https://t.mercor.com/rrVyb" },
         { segment: "Data Analysis", role: "Data Critic", rate: "$40 - $55", link: "https://t.mercor.com/K13Z9" },
@@ -298,18 +297,18 @@
         div.className = 'option';
         div.innerHTML = `<span class="option-title">${item.segment}</span><span class="option-subtitle">Match Pathway: ${item.role}</span>`;
         div.onclick = () => {
-            state.specialty = item.segment;
-            state.role = item.role;
-            state.rate = item.rate;
-            state.referral = item.link;
+            internalState.specialty = item.segment;
+            internalState.role = item.role;
+            internalState.rate = item.rate;
+            internalState.referral = item.link;
             goToSlide(3);
         };
         optionsContainer.appendChild(div);
     });
 
-    function selectPsychometric(val) { state.psychometric = val; goToSlide(4); }
-    function selectWorkStyle(val) { state.workStyle = val; goToSlide(5); }
-    function selectSkill(val) { state.skill = val; goToSlide(6); }
+    function selectPsychometric(val) { internalState.psychometric = val; goToSlide(4); }
+    function selectWorkStyle(val) { internalState.workStyle = val; goToSlide(5); }
+    function selectSkill(val) { internalState.skill = val; goToSlide(6); }
 
     async function submitSecureEmail() {
         const emailInput = document.getElementById('user-email').value;
@@ -319,33 +318,48 @@
             return alert("Please enter a valid work email address.");
         }
 
-        state.email = emailInput;
+        internalState.email = emailInput;
         btn.innerText = "Loading your results...";
+
+        // Construct payload to match backend schema extraction structure perfectly
+        const backendPayload = {
+            email: internalState.email,
+            track: internalState.specialty,
+            details: `Assigned Role: ${internalState.role} (Rate Range: ${internalState.rate})`,
+            answers: {
+                assigned_role: internalState.role,
+                rate_bracket: internalState.rate,
+                psychometric_profile: internalState.psychometric,
+                work_style_habit: internalState.workStyle,
+                primary_skill_node: internalState.skill,
+                referral_pathway: internalState.referral
+            }
+        };
 
         try {
             await fetch('/api/capture', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(state)
+                body: JSON.stringify(backendPayload)
             });
-        } catch (e) { console.log("Data captured locally."); }
+        } catch (e) { console.log("Network operation logging fallback executed."); }
 
-        document.getElementById('display-role').innerText = state.role;
-        document.getElementById('display-rate').innerText = `${state.rate} / hr`;
-        document.getElementById('display-specialty').innerText = state.specialty;
-        document.getElementById('display-referral-link').href = state.referral;
+        document.getElementById('display-role').innerText = internalState.role;
+        document.getElementById('display-rate').innerText = `${internalState.rate} / hr`;
+        document.getElementById('display-specialty').innerText = internalState.specialty;
+        document.getElementById('display-referral-link').href = internalState.referral;
 
         goToSlide(7);
     }
 
     function shareToLinkedIn() {
-        const text = `My micro-specialty is shifting the architecture of AI; experts like me are heading toward "${state.role}" roles at major labs.\n\nInsight via SonicBloom: labor-boom.vercel.app`;
-        const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://labor-boom.vercel.app&text=${encodeURIComponent(text)}`;
+        const text = `My specialty is changing, alongside the industry; experts like me are targeting "${internalState.role}" roles at major AI labs.\n\n Insight is everthing: https://sonicbloom.dev/labmatch`;
+        const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://sonicbloom.dev/labmatch&text=${encodeURIComponent(text)}`;
         window.open(shareUrl, '_blank', 'width=600,height=600');
     }
 
     function resetEngine() {
-        state = { specialty: '', role: '', rate: '', referral: '', psychometric: '', workStyle: '', skill: '', email: '' };
+        internalState = { specialty: '', role: '', rate: '', referral: '', psychometric: '', workStyle: '', skill: '', email: '' };
         document.getElementById('user-email').value = '';
         document.getElementById('email-submit-btn').innerText = "See My Match";
         goToSlide(1);
