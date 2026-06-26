@@ -25,6 +25,7 @@
             line-height: 1.5;
         }
 
+        /* Clean Minimal Navbar */
         header {
             border-bottom: 1px solid var(--border-clean);
             background: var(--bg-panel);
@@ -34,7 +35,7 @@
         }
 
         .nav-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px 24px;
             display: flex;
@@ -61,10 +62,12 @@
             border: 1px solid var(--border-clean);
         }
 
+        /* Hero Intro */
         .hero {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 24px 60px 24px;
+            padding: 60px 24px 40px 24px;
+            box-sizing: border-box;
         }
 
         .hero-title {
@@ -84,12 +87,68 @@
             margin: 0;
         }
 
-        .grid-section {
-            max-width: 1000px;
+        /* Two-Column Workspace Layout */
+        .workspace-layout {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px 100px 24px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            box-sizing: border-box;
         }
 
+        /* Sidebar Knowledge Tree Component */
+        .sidebar-nav {
+            border-right: 1px solid var(--border-clean);
+            padding-right: 20px;
+        }
+
+        .tree-title {
+            font-family: monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .tree-root {
+            font-family: monospace;
+            font-size: 0.9rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tree-node-parent {
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .tree-branch {
+            list-style: none;
+            padding-left: 14px;
+            margin: 4px 0 12px 0;
+            border-left: 1px dashed var(--border-clean);
+        }
+
+        .tree-item a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: inline-block;
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+
+        .tree-item a:hover {
+            color: var(--sonic-orange);
+        }
+
+        /* Content Architecture Blocks */
         .section-label {
             font-family: monospace;
             font-size: 0.8rem;
@@ -100,25 +159,42 @@
             display: block;
         }
 
-        .grid {
+        .apps-container {
+            margin-bottom: 60px;
+        }
+
+        .apps-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-columns: 1.5fr 1fr 1fr;
             gap: 20px;
         }
 
+        .blog-section {
+            border-top: 1px dashed var(--border-clean);
+            padding-top: 60px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* Clean Studio Cards */
         .card {
             background: var(--bg-panel);
             border: 1px solid var(--border-clean);
             border-radius: 16px;
-            padding: 32px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: border-color 0.2s, transform 0.2s;
+            transition: border-color 0.2s;
         }
 
         .card:hover { border-color: var(--text-main); }
 
+        /* Highlighted Feature App Card */
         .card.featured {
             border-color: var(--sonic-orange);
             background: linear-gradient(180deg, #ffffff 0%, var(--sonic-orange-light) 100%);
@@ -126,38 +202,53 @@
 
         .status {
             font-family: monospace;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             text-transform: uppercase;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
             align-self: flex-start;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .status.live { background: var(--sonic-orange-light); color: var(--sonic-orange); }
         .status.active-dev { background: #e6f4ea; color: var(--terminal-green); border: 1px solid rgba(16, 185, 129, 0.2); }
         .status.upcoming { background: var(--bg-canvas); color: var(--text-muted); border: 1px dashed var(--border-clean); }
+        .status.kb-node { background: #f3f4f6; color: var(--text-muted); }
 
-        .card-title { font-size: 1.75rem; font-weight: 700; margin: 0 0 10px 0; letter-spacing: -0.5px; }
-        .card-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0 0 30px 0; }
+        .card-title { font-size: 1.4rem; font-weight: 700; margin: 0 0 10px 0; letter-spacing: -0.5px; line-height: 1.2; }
+        .card-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin: 0 0 24px 0; }
 
         .card-link {
             font-weight: 700;
             text-decoration: none;
             color: var(--text-main);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
 
-        .card.featured .card-link { color: var(--sonic-orange); }
+        .card.featured .card-link, .blog-link-main { color: var(--sonic-orange); }
         .card-link span { transition: transform 0.2s; }
         .card:hover .card-link span { transform: translateX(4px); }
 
-        @media (max-width: 850px) {
-            .grid { grid-template-columns: 1fr; }
+        .blog-header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .blog-header-wrapper .section-label { margin-bottom: 0; }
+        .blog-link-main { font-family: monospace; font-size: 0.85rem; text-decoration: none; font-weight: 700; }
+
+        @media (max-width: 1024px) {
+            .workspace-layout { grid-template-columns: 1fr; }
+            .sidebar-nav { border-right: none; border-bottom: 1px dashed var(--border-clean); padding-right: 0; padding-bottom: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .apps-grid, .blog-grid { grid-template-columns: 1fr; }
             .hero-title { font-size: 2.5rem; }
         }
     </style>
@@ -176,39 +267,97 @@
         <p class="hero-subtitle">SonicBloom is a creative playground where we build clean web apps, helpful content engines, and structured data-driven pipelines.</p>
     </section>
 
-    <main class="grid-section">
-        <span class="section-label">Active Deployments</span>
-        <div class="grid">
-            
-            <div class="card featured">
-                <div>
-                    <div class="status live">Connected Engine</div>
-                    <h2 class="card-title">LabMatch</h2>
-                    <p class="card-desc">A diagnostic application parsing structured user tracks and matching operational credentials directly with technical AI data labs.</p>
-                </div>
-                <a href="/labmatch" class="card-link">Take Diagnostic<span>→</span></a>
-            </div>
+    <div class="workspace-layout">
+        
+        <aside class="sidebar-nav">
+            <span class="tree-title">Knowledge Graph Scope</span>
+            <ul class="tree-root">
+                <li>
+                    <a href="/blog/the-algorithmic-shift.html" class="tree-node-parent">⊙ Algorithmic Shift Hub</a>
+                    <ul class="tree-branch">
+                        <li class="tree-item"><a href="/blog/parsing-logic.html">├── 01 / Parsing Logic</a></li>
+                        <li class="tree-item"><a href="/blog/rate-architecture.html">├── 02 / Rate Architecture</a></li>
+                        <li class="tree-item"><a href="/blog/adversarial-mitigation.html">└── 03 / Adversarial Mitigation</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
 
-            <div class="card">
-                <div>
-                    <div class="status active-dev">In Development</div>
-                    <h2 class="card-title">Plath</h2>
-                    <p class="card-desc">A specialized framework structuring calculations for personal forecasts and predictive analysis.</p>
-                </div>
-                <span class="card-link" style="color: var(--terminal-green);">Building</span>
-            </div>
+        <main>
+            <section class="apps-container">
+                <span class="section-label">Active Deployments</span>
+                <div class="apps-grid">
+                    
+                    <div class="card featured">
+                        <div>
+                            <div class="status live">Connected Engine</div>
+                            <h2 class="card-title">LabMatch</h2>
+                            <p class="card-desc">A diagnostic application parsing structured user tracks and matching operational credentials directly with technical AI data labs.</p>
+                        </div>
+                        <a href="/labmatch" class="card-link">Take Diagnostic<span>→</span></a>
+                    </div>
 
-            <div class="card">
-                <div>
-                    <div class="status upcoming">Paused</div>
-                    <h2 class="card-title">Go Engine</h2>
-                    <p class="card-desc">An architectural framework focused on the spatial logic and strategic insights of traditional grid-based play.</p>
-                </div>
-                <span class="card-link" style="color: var(--text-muted);">Awaiting Build</span>
-            </div>
+                    <div class="card">
+                        <div>
+                            <div class="status active-dev">In Development</div>
+                            <h2 class="card-title">Plath</h2>
+                            <p class="card-desc">A specialized framework structuring calculations for personal forecasts and predictive analysis.</p>
+                        </div>
+                        <span class="card-link" style="color: var(--terminal-green);">Building</span>
+                    </div>
 
-        </div>
-    </main>
+                    <div class="card">
+                        <div>
+                            <div class="status upcoming">Paused</div>
+                            <h2 class="card-title">Go Engine</h2>
+                            <p class="card-desc">An architectural framework focused on the spatial logic and strategic insights of traditional grid-based play.</p>
+                        </div>
+                        <span class="card-link" style="color: var(--text-muted);">Awaiting Build</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="blog-section">
+                <div class="blog-header-wrapper">
+                    <span class="section-label">Knowledge Base Insights</span>
+                    <a href="/blog/the-algorithmic-shift.html" class="blog-link-main">View Full Knowledge Hub →</a>
+                </div>
+                
+                <div class="blog-grid">
+                    
+                    <div class="card">
+                        <div>
+                            <div class="status kb-node">Node 01 // Ingest</div>
+                            <h2 class="card-title">Parsing Logic</h2>
+                            <p class="card-desc">How enterprise artificial intelligence platforms programmatically break down unstructured resume data strings into structured operational tokens.</p>
+                        </div>
+                        <a href="/blog/parsing-logic.html" class="card-link">Analyze Schema<span>→</span></a>
+                    </div>
+
+                    <div class="card">
+                        <div>
+                            <div class="status kb-node">Node 02 // Economics</div>
+                            <h2 class="card-title">Rate Architecture</h2>
+                            <p class="card-desc">Demystifying the shifting technical compensation landscape, tracking hourly project scaling budgets across dense domain segments.</p>
+                        </div>
+                        <a href="/blog/rate-architecture.html" class="card-link">Review Matrix<span>→</span></a>
+                    </div>
+
+                    <div class="card">
+                        <div>
+                            <div class="status kb-node">Node 03 // Safety</div>
+                            <h2 class="card-title">Adversarial Mitigation</h2>
+                            <p class="card-desc">An inspection of the human feedback loop structures required to stress-test logical patterns and block model hallucination states.</p>
+                        </div>
+                        <a href="/blog/adversarial-mitigation.html" class="card-link">Expose Weaknesses<span>→</span></a>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+    </div>
 
 </body>
 </html>
