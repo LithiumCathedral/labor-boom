@@ -321,7 +321,6 @@
         internalState.email = emailInput;
         btn.innerText = "Loading your results...";
 
-        // Construct payload to match backend schema extraction structure perfectly
         const backendPayload = {
             email: internalState.email,
             track: internalState.specialty,
@@ -353,8 +352,8 @@
     }
 
     function shareToLinkedIn() {
-        const text = `My specialty is changing, alongside the industry; experts like me are targeting "${internalState.role}" roles at major AI labs.\n\n Insight is everthing: https://sonicbloom.dev/labmatch`;
-        const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://sonicbloom.dev/labmatch&text=${encodeURIComponent(text)}`;
+        const text = `My micro-specialty is shifting the architecture of AI; experts like me are heading toward "${internalState.role}" roles at major labs.\n\nInsight via SonicBloom: labor-boom.vercel.app`;
+        const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=https://labor-boom.vercel.app&text=${encodeURIComponent(text)}`;
         window.open(shareUrl, '_blank', 'width=600,height=600');
     }
 
