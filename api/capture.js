@@ -11,15 +11,17 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, error: 'Missing email parameter.' });
   }
 
+  // Hardcoded direct pooler fallback link to bypass Vercel env variable caching issues
+  const connectionString = process.env.DATABASE_URL || "postgresql://postgres.iuvyteyrhgatmqpbcmzl:IARIASC159637@aws-1-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true";
+
   const client = new Client({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: connectionString,
     ssl: { rejectUnauthorized: false }
   });
 
   try {
     await client.connect();
 
-    // Isolated test query: Target ONLY the email column to check connection validity
     const queryText = `
       INSERT INTO labmatch_leads (email) 
       VALUES ($1)
