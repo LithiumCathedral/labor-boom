@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Portfolio Dashboard -->
+  <url>
+    <loc>https://www.sonicbloom.dev/</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Interactive Career Ingestion Engine -->
+  <url>
+    <loc>https://www.sonicbloom.dev/labmatch</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Knowledge Base Pillar Core -->
+  <url>
+    <loc>https://www.sonicbloom.dev/blog/the-algorithmic-shift.html</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Knowledge Base Spoke: Parsing Logic -->
+  <url>
+    <loc>https://www.sonicbloom.dev/blog/parsing-logic.html</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- Knowledge Base Spoke: Rate Architecture -->
+  <url>
+    <loc>https://www.sonicbloom.dev/blog/rate-architecture.html</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- Knowledge Base Spoke: Adversarial Mitigation -->
+  <url>
+    <loc>https://www.sonicbloom.dev/blog/adversarial-mitigation.html</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+</urlset>
