@@ -13,8 +13,8 @@
             --sonic-orange: #ff6a00;
             --sonic-orange-light: #fff0e6;
             --border-clean: #e5e7eb;
-            --terminal-bg: #111827;
-            --terminal-border: #1f2937;
+            --terminal-bg: #161b22;
+            --terminal-border: #30363d;
         }
 
         body {
@@ -69,7 +69,7 @@
             margin: 0 auto;
             padding: 30px 24px 100px 24px;
             display: grid;
-            grid-template-columns: 340px 1fr;
+            grid-template-columns: 360px 1fr;
             gap: 40px;
             box-sizing: border-box;
             height: calc(100vh - 80px);
@@ -154,14 +154,14 @@
 
         .tree-item {
             cursor: pointer;
-            padding: 3px 6px;
+            padding: 4px 6px;
             color: #8b949e;
             display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: normal; /* Allows wrapping for longer titles */
             text-decoration: none;
             border-radius: 4px;
+            line-height: 1.4;
+            margin-bottom: 2px;
         }
         .tree-item:hover { color: var(--sonic-orange); background: rgba(255, 106, 0, 0.05); }
 
@@ -301,20 +301,23 @@
             </div>
             
             <div class="terminal-tree-area">
-                <span class="tree-title">Repositories</span>
+                <div class="tree-item" onclick="loadDashboard()" style="color: #f0f6fc; font-weight: bold; padding-left: 0; margin-bottom: 10px;">🏠 Dashboard Core</div>
+                <div class="tree-item" onclick="loadFaqStub()" style="color: #f0f6fc; font-weight: bold; padding-left: 0; margin-bottom: 15px;">❓ FAQ System</div>
+
+                <span class="tree-title">Production Repositories</span>
                 <div id="dynamic-tree-mount"></div>
 
-                <span class="tree-title">Pipelines</span>
+                <span class="tree-title">Pipelines Staged</span>
                 <div class="folder-header" onclick="toggleFolder('staged-apps')">📁 projects/ <span>[2]</span></div>
                 <div class="folder-content expanded" id="staged-apps">
-                    <div class="tree-item" onclick="loadWaitlist('Plath', 'A specialized forecasting framework mapping personal numerology architectures and transition layers.')">↳ plath.sys</div>
-                    <div class="tree-item" onclick="loadWaitlist('Go Engine', 'An architectural matrix focused on spatial data arrays and grid logic pathways.')">↳ go_engine.sys</div>
+                    <div class="tree-item" onclick="loadWaitlist('Plath', 'A specialized forecasting framework mapping personal numerology architectures and transition layers.')">↳ Plath Framework</div>
+                    <div class="tree-item" onclick="loadWaitlist('Go Engine', 'An architectural matrix focused on spatial data arrays and grid logic pathways.')">↳ Go Grid Engine</div>
                 </div>
             </div>
 
             <div class="terminal-banner">
                 <span class="banner-indicator">●</span>
-                <span id="console-stream">STDOUT: System active.</span>
+                <span id="console-stream">STDOUT: System active. Awaiting route selection...</span>
             </div>
         </aside>
 
@@ -326,89 +329,19 @@
     <script>
         // DATA MATRIX ARCHITECTURE
         // Appending a new dictionary row here automatically calculates folder quantities, links, and builds UI pathways.
-const structuralSitemap = [
-    { 
-        id: "n1", 
-        category: "nodes", 
-        file: "parsing_logic.md", 
-        title: "Parsing Logic", 
-        seoTitle: "01 / Parsing Logic: Semantic Domain Expertise Evaluation",
-        summary: "How AI platforms programmatically evaluate semantic domain expertise from unstructured text parameters.", 
-        url: "/blog/parsing-logic.html",
-        keywords: "semantic parsing, data tokenization, ingestion pipelines, AI labs"
-    },
-    { 
-        id: "n2", 
-        category: "nodes", 
-        file: "rate_architecture.md", 
-        title: "Rate Architecture", 
-        seoTitle: "02 / Rate Architecture: Contract Technical Validation Economics",
-        summary: "Tracking hourly project scaling configurations across highly technical, domain-dense data validation segments.", 
-        url: "/blog/rate-architecture.html",
-        keywords: "rate value matrix, logic density scaling, tech compensation metrics"
-    },
-    { 
-        id: "n3", 
-        category: "nodes", 
-        file: "adversarial_mitigation.md", 
-        title: "Adversarial Mitigation", 
-        seoTitle: "03 / Adversarial Mitigation: Stabilizing Foundational Models via Human Oversight Loops",
-        summary: "An inspection of the human feedback loop structures required to stress-test logical variations and block model hallucination states.", 
-        url: "/blog/adversarial-mitigation.html",
-        keywords: "adversarial loop mitigation, model hallucination filter, human-in-the-loop safety"
-    },
-    { 
-        id: "n4", 
-        category: "nodes", 
-        file: "validator_onboarding.md", 
-        title: "Validator Onboarding", 
-        seoTitle: "Direct Validator Onboarding to Model Calibration Pipelines",
-        summary: "The step-by-step human-in-the-loop synchronization parameters and protocol sequence for independent validators joining active training arrays.", 
-        url: "/blog/validator-onboarding.html",
-        keywords: "validator registration, calibration verification, pipeline injection"
-    },
-    { 
-        id: "n5", 
-        category: "nodes", 
-        file: "injection_mapping.md", 
-        title: "Node-to-Edge Profiling", 
-        seoTitle: "Node-to-Edge Profiling Infrastructure and Tokenization Pipelines",
-        summary: "Details the algorithmic pipeline utilized by LabMatch to transform messy, non-linear structural backgrounds into clean database system variables.", 
-        url: "/blog/injection-mapping.html",
-        keywords: "token parser, structural mapping, credential tracking matrix"
-    },
-    { 
-        id: "e1", 
-        category: "essays", 
-        file: "algorithmic_shift.txt", 
-        title: "The Algorithmic Shift", 
-        seoTitle: "The Algorithmic Shift: Navigating Modern AI Research Lab Infrastructures",
-        summary: "An analysis tracking deep infrastructure adaptations and automated onboarding frameworks within specialized modern expert talent matching networks.", 
-        url: "/blog/the-algorithmic-shift.html",
-        keywords: "talent matching networks, automated intake, algorithmic shift hub"
-    },
-    { 
-        id: "e2", 
-        category: "essays", 
-        file: "logic_density_matrix.txt", 
-        title: "Calibrating Compensation Against Domain Depth", 
-        seoTitle: "Calibrating Compensation Against Domain Depth Matrix",
-        summary: "An analysis of the fixed-tier mathematical grid correlating domain logic depth to live hourly compensation metrics across compliance engineers, code evaluators, and data critics.", 
-        url: "/blog/logic-density-matrix.html",
-        keywords: "compliance engineers, code evaluators, data critics, logic density exponential scale"
-    },
-    { 
-        id: "f1", 
-        category: "faq", 
-        file: "global_faq_v1.cfg", 
-        title: "Global Core FAQ Engine", 
-        isFaq: true 
-    }
-];
+        const structuralSitemap = [
+            { id: "n1", category: "nodes", title: "01 / Parsing Logic Engine", summary: "How engineering platforms programmatically break down unstructured resume data strings into structured operational tokens." },
+            { id: "n2", category: "nodes", title: "02 / Rate Value Matrix", summary: "Tracking hourly project scaling configurations across highly technical, domain-dense data validation segments." },
+            { id: "n3", category: "nodes", title: "03 / Adversarial Loop Mitigation", summary: "An inspection of the human feedback loop structures required to stress-test logical variations and block model hallucination states." },
+            { id: "n4", category: "nodes", title: "Validator Onboarding Framework", summary: "The step-by-step protocol sequence for independent validators syncing with model calibration pipelines to establish human-in-the-loop synchronization parameters." },
+            { id: "n5", category: "nodes", title: "Node-to-Edge Profiling Infrastructure", summary: "Details the algorithmic pipeline utilized by LabMatch to transform messy, non-linear structural backgrounds into clean database system variables without human recruitment intervention." },
+            { id: "e1", category: "essays", title: "The Algorithmic Shift Hub Strategy", summary: "An analysis tracking deep infrastructure adaptations and automated onboarding frameworks within specialized modern expert talent matching networks." },
+            { id: "e2", category: "essays", title: "Calibrating Compensation Against Domain Depth Matrix", summary: "An analysis of the fixed-tier mathematical grid correlating domain logic depth to live hourly compensation metrics across compliance engineers, code evaluators, and data critics." }
+        ];
 
         // Renders Core Platform Frame Layout
         function loadDashboard() {
-            document.getElementById('console-stream').innerText = "STDOUT: Core Workspace Active // New repository clusters initialized successfully.";
+            document.getElementById('console-stream').innerText = "STDOUT: Core Workspace Active // Navigation index updated.";
             document.getElementById('stage').innerHTML = `
                 <div class="stage-card">
                     <h1><em>Simple tools</em> have the best effect.</h1>
@@ -446,8 +379,7 @@ const structuralSitemap = [
             const mount = document.getElementById('dynamic-tree-mount');
             const directories = {
                 nodes: { label: "nodes/ (200w)", items: [] },
-                essays: { label: "essays/ (>700w)", items: [] },
-                faq: { label: "global_faq/ (400w)", items: [] }
+                essays: { label: "essays/ (>700w)", items: [] }
             };
 
             structuralSitemap.forEach(node => {
@@ -463,7 +395,7 @@ const structuralSitemap = [
                         </div>
                         <div class="folder-content" id="${key}-folder">
                             ${dir.items.map(item => `
-                                <div class="tree-item" onclick="routeSystemPage('${item.id}')">↳ ${item.file}</div>
+                                <div class="tree-item" onclick="routeSystemPage('${item.id}')">↳ ${item.title}</div>
                             `).join('')}
                         </div>
                     </div>
@@ -472,120 +404,36 @@ const structuralSitemap = [
             mount.innerHTML = treeHtml;
         }
 
-        // Intelligent Page Routing Router Content Handler
-async function routeSystemPage(id) {
-    const asset = structuralSitemap.find(x => x.id === id);
-    if (!asset) return;
-
-    // 1. DYNAMIC SYSTEM SEO MARKUP HOOKS
-    document.title = `${asset.seoTitle || asset.title} | SonicBloom Infrastructure`;
-    
-    // Dynamically insert or update the SEO meta description tag
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.name = "description";
-        document.head.appendChild(metaDesc);
-    }
-    metaDesc.content = asset.summary;
-
-    // Inject Runtime JSON-LD Structured Data for Technical Search Crawlers
-    let schemaScript = document.getElementById('dynamic-jsonld');
-    if (!schemaScript) {
-        schemaScript = document.createElement('script');
-        schemaScript.id = 'dynamic-jsonld';
-        schemaScript.type = 'application/ld+json';
-        document.head.appendChild(schemaScript);
-    }
-    schemaScript.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "TechArticle",
-        "headline": asset.seoTitle || asset.title,
-        "description": asset.summary,
-        "keywords": asset.keywords || "ai infrastructure, data tracking",
-        "identifier": asset.id,
-        "filePath": `system/${asset.category}/${asset.file}`
-    });
-
-    // 2. INITIALIZE WORKSPACE VIEW WITH LOADING ANIMATION LOOP
-    document.getElementById('console-stream').innerText = `STDOUT: Querying server stream for remote asset location: ${asset.url}`;
-    document.getElementById('stage').innerHTML = `
-        <div class="stage-card">
-            <span style="font-family:monospace; color:var(--sonic-orange); font-size:0.85rem; font-weight:bold;">📄 SYSTEM_PATH // ${asset.category}/${asset.file}</span>
-            <h1 style="margin-top:10px;">${asset.title}</h1>
-            <p style="font-size:1.1rem; color: var(--text-main); margin-bottom:25px; font-style: italic;">${asset.summary}</p>
-            <hr style="border:0; border-top:1px dashed var(--border-clean); margin-bottom:30px;">
-            <div id="async-node-content" style="font-family:inherit; color:var(--text-muted);">
-                <span style="font-family:monospace; color:var(--sonic-orange);">[CONNECTING TO TERMINAL ENDPOINT STREAM...]</span>
-            </div>
-        </div>
-    `;
-
-    if (asset.isFaq) {
-        renderFaqPage(asset);
-        return;
-    }
-
-    // 3. EXECUTE THE HYBRID FETCH LOGIC FROM THE /BLOG/ DIRECTORY
-    if (asset.url) {
-        try {
-            const response = await fetch(asset.url);
-            if (!response.ok) throw new Error(`HTTP Endpoint Error Status: ${response.status}`);
-            const rawContent = await response.text();
-            
-            // Extract content cleanly out of full HTML wrappers if pulling raw pages
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(rawContent, 'text/html');
-            
-            // Clean extraction prioritization layer:
-            // Tries to grab .wrapper first (essays), then .container (nodes), then fallback to body or raw text
-            let filteredContent = "";
-            if (doc.querySelector('.wrapper')) {
-                filteredContent = doc.querySelector('.wrapper').innerHTML;
-            } else if (doc.querySelector('.container')) {
-                filteredContent = doc.querySelector('.container').innerHTML;
-            } else if (doc.querySelector('body')) {
-                filteredContent = doc.querySelector('body').innerHTML;
-            } else {
-                filteredContent = rawContent;
-            }
-
-            document.getElementById('async-node-content').innerHTML = filteredContent;
-            document.getElementById('console-stream').innerText = `STDOUT: Successfully rendered [${asset.file}] tracking asset framework cleanly into the viewport container.`;
-        } catch (error) {
-            document.getElementById('async-node-content').innerHTML = `
-                <p style="color:red; font-family:monospace;">[ERRLOG: DIRECTORY ROUTING RESOLUTION FAULT]</p>
-                <p style="font-size:0.9rem; margin-top:10px;">Verify that the source content file exists exactly at path: <code>${asset.url}</code></p>
-            `;
-            document.getElementById('console-stream').innerText = `ERRLOG: Failed to load target path source asset stream for filename [${asset.file}].`;
-        }
-    } else {
-        document.getElementById('async-node-content').innerHTML = `<p><em>No remote deployment mapping assigned to this system parameter item.</em></p>`;
-    }
-}
-
-        // Render Global Interactive FAQ Template Engine Block
-        function renderFaqPage(asset) {
-            let faqHtml = `
+        // Dedicated FAQ Allocation Stub Stage Area
+        function loadFaqStub() {
+            document.getElementById('console-stream').innerText = "STDOUT: Routed to FAQ workspace shell container.";
+            document.getElementById('stage').innerHTML = `
                 <div class="stage-card">
-                    <span style="font-family:monospace; color:var(--sonic-orange); font-size:0.85rem; font-weight:bold;">📁 SYSTEM_PATH // ${asset.category}/${asset.file}</span>
-                    <h1 style="margin-top:10px;">Global FAQ Core</h1>
-                    <p>Compiled runtime answers routing query mechanics directly to recommended informational system parameters.</p>
+                    <span style="font-family:monospace; color:var(--sonic-orange); font-size:0.85rem; font-weight:bold;">⚙️ ROUTE // system/faq_page_root</span>
+                    <h1 style="margin-top:10px;">FAQ System</h1>
+                    <p>The centralized global question-and-answer cluster architecture is currently staged for optimization layout.</p>
+                    <hr style="border:0; border-top:1px dashed var(--border-clean); margin-bottom:30px; margin-top:30px;">
+                    <p style="color: var(--text-muted); font-style: italic;">[Terminal notice: Custom QA blocks and dynamic module designs can be appended directly inside this route environment at a later stage interval.]</p>
+                </div>
             `;
+        }
 
-            for(let i=1; i<=10; i++) {
-                faqHtml += `
-                    <div style="margin-top:24px; border-bottom:1px dashed var(--border-clean); padding-bottom:16px;">
-                        <h3 style="font-size:1.05rem; margin-bottom:6px; color:var(--text-main);">Module Theme Cluster ${i} // System Integrity Matrix</h3>
-                        <p style="font-size:0.9rem; font-weight:bold; color:var(--text-main); margin-bottom:4px;">Q: How does algorithmic mapping isolate specialized validation tasks?</p>
-                        <p style="font-size:0.9rem; margin-bottom:8px;">A: By treating engineering variables as isolated query units directly inside verified data arrays. Relational structural nodes protect baseline integrity values.</p>
-                        <span style="font-family:monospace; font-size:0.78rem; color:var(--sonic-orange);">Suggested Content Path: <span style="cursor:pointer; text-decoration:underline;" onclick="routeSystemPage('n1')">parsing_logic.md</span></span>
-                    </div>
-                `;
-            }
+        // Intelligent Page Routing Router Content Handler
+        function routeSystemPage(id) {
+            const asset = structuralSitemap.find(x => x.id === id);
+            if (!asset) return;
 
-            faqHtml += `</div>`;
-            document.getElementById('stage').innerHTML = faqHtml;
+            document.getElementById('console-stream').innerText = `STDOUT: Executing view buffer stream for repository item: [${asset.title}]`;
+
+            document.getElementById('stage').innerHTML = `
+                <div class="stage-card">
+                    <span style="font-family:monospace; color:var(--sonic-orange); font-size:0.85rem; font-weight:bold;">📄 SYSTEM_PATH // ${asset.category}/${asset.id}_production</span>
+                    <h1 style="margin-top:10px;">${asset.title}</h1>
+                    <p style="font-size:1.1rem; color: var(--text-main); margin-bottom:30px;">${asset.summary}</p>
+                    <hr style="border:0; border-top:1px dashed var(--border-clean); margin-bottom:30px;">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Core operational pipeline parameters populate seamlessly from verified tracking schemas inside active container frameworks.</p>
+                </div>
+            `;
         }
 
         // Waitlist Engine Render Function
@@ -599,7 +447,7 @@ async function routeSystemPage(id) {
                     
                     <div class="waitlist-box">
                         <h3>Join Project Pipeline</h3>
-                        <p>This module has not yet launched into production. Enter your notification hooks below to access first.</p>
+                        <p>This module has not yet launched into production. Enter your notification hooks below to access early-access deployment loops.</p>
                         <form class="waitlist-form" onsubmit="handleWaitlistSubmit(event, '${name}')">
                             <input type="email" required placeholder="operator_email@domain.com" class="waitlist-input" id="waitlist-field">
                             <button type="submit" class="waitlist-btn">Join Waitlist</button>
